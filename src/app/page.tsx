@@ -101,7 +101,7 @@ function CreateListItem() {
                     </button>
                     <button
                       className="ml-2 text-red-500"
-                      onClick={() => handleDeleteItem("wantToDo", index)}
+                      onClick={() => handleDeleteItem("needToDo", index)}
                     >
                       Delete
                     </button>
