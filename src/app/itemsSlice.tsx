@@ -15,7 +15,7 @@ const itemsSlice = createSlice({
   initialState,
   reducers: {
     addWantToDoItem: (state) => {
-      state.wantToDoItems.push("");
+      state.wantToDoItems.unshift("");
     },
     updateWantToDoItem: (
       state,
@@ -29,20 +29,30 @@ const itemsSlice = createSlice({
     ) => {
       state.needToDoItems[action.payload.index] = action.payload.value;
     },
-    moveToNeedToDo: (state, action: PayloadAction<number>) => {
-      const itemToMove = state.wantToDoItems[action.payload];
-      state.wantToDoItems = state.wantToDoItems.filter(
-        (_, i) => i !== action.payload
-      );
 
-      state.needToDoItems.push(itemToMove);
+    moveToNeedToDo: (state, action: PayloadAction<number>) => {
+      const itemToMove = state.wantToDoItems.splice(action.payload, 1)[0];
+      state.needToDoItems.unshift(itemToMove);
     },
+
     moveToWantToDo: (state, action: PayloadAction<number>) => {
-      const itemToMove = state.needToDoItems[action.payload];
-      state.needToDoItems = state.needToDoItems.filter(
-        (_, i) => i !== action.payload
-      );
-      state.wantToDoItems.push(itemToMove);
+      const itemToMove = state.needToDoItems.splice(action.payload, 1)[0];
+      state.wantToDoItems.unshift(itemToMove);
+    },
+    deleteItem: (
+      state,
+      action: PayloadAction<{ list: string; index: number }>
+    ) => {
+      const { list, index } = action.payload;
+      if (list === "wantToDo") {
+        state.wantToDoItems.splice(index, 1);
+      } else if (list === "needToDo") {
+        state.needToDoItems.splice(index, 1);
+      }
+    },
+    clearAllItems: (state) => {
+      state.wantToDoItems = [];
+      state.needToDoItems = [];
     },
   },
 });
@@ -53,6 +63,8 @@ export const {
   updateNeedToDoItem,
   moveToNeedToDo,
   moveToWantToDo,
+  deleteItem,
+  clearAllItems,
 } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

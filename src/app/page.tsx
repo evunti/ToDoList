@@ -10,6 +10,8 @@ import {
   updateNeedToDoItem,
   moveToNeedToDo,
   moveToWantToDo,
+  deleteItem,
+  clearAllItems,
 } from "./itemsSlice";
 
 function CreateListItem() {
@@ -20,7 +22,9 @@ function CreateListItem() {
   const needToDoItems = useSelector(
     (state: RootState) => state.items.needToDoItems
   );
-
+  const handleDeleteItem = (list: string, index: number) => {
+    dispatch(deleteItem({ list, index }));
+  };
   return (
     <div>
       <main>
@@ -59,6 +63,12 @@ function CreateListItem() {
                     >
                       Move
                     </button>
+                    <button
+                      className="ml-2 text-red-500"
+                      onClick={() => handleDeleteItem("wantToDo", index)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -89,11 +99,25 @@ function CreateListItem() {
                     >
                       Move
                     </button>
+                    <button
+                      className="ml-2 text-red-500"
+                      onClick={() => handleDeleteItem("wantToDo", index)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="clear-button-container flex justify-center mt-4">
+          <button
+            onClick={() => dispatch(clearAllItems())}
+            className="clear-all-btn px-4 py-1 bg-red-500 text-white rounded-md"
+          >
+            Clear All
+          </button>
         </div>
       </main>
     </div>
