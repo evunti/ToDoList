@@ -1,19 +1,26 @@
 "use client";
-import { useState } from "react";
 
-export default function CreateListItem() {
-  const [wantToDoItem, setWantToDoItem] = useState<string[]>([]);
-  const [needToDoItem, setNeedToDoItem] = useState<string[]>([]);
+import { Provider } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "./store";
+import store from "./store";
+import {
+  addWantToDoItem,
+  updateWantToDoItem,
+  updateNeedToDoItem,
+  moveToNeedToDo,
+  moveToWantToDo,
+} from "./itemsSlice";
 
+function CreateListItem() {
+  const dispatch = useDispatch<AppDispatch>();
+  const wantToDoItems = useSelector(
+    (state: RootState) => state.items.wantToDoItems
+  );
+  const needToDoItems = useSelector(
+    (state: RootState) => state.items.needToDoItems
+  );
 
-  const addWantToDoItem = () => {
-    setWantToDoItem([...wantToDoItem, ""]);
-  };
-  const moveToNeedToDo = (index:number) => {
-    const itemToMove = wantToDoItem[index];
-    setWantToDoItem(wantToDoItem.filter((_, i) => i !== index));
-    setNeedToDoItem([...needToDoItem, itemToMove]);
-  }
   return (
     <div>
       <main>
@@ -22,43 +29,81 @@ export default function CreateListItem() {
         </h1>
         <div className="ListTablesContainer">
           <table className="LeftTable">
-            <tr>
-              <th>
-                <button className="cursor-pointer" onClick={addWantToDoItem}>
-                  Want To Do
-                </button>
-              </th>
-            </tr>
+            <thead>
+              <tr>
+                <th>
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => dispatch(addWantToDoItem())}
+                  >
+                    Want To Do
+                  </button>
+                </th>
+              </tr>
+            </thead>
             <tbody>
-              {wantToDoItem.map((item, index) => (
+              {wantToDoItems.map((item, index) => (
                 <tr key={index}>
                   <td>
                     <input
                       value={item}
-                      onChange={(e) => {
-                        const newItems = [...wantToDoItem];
-                        newItems[index] = e.target.value;
-                        setWantToDoItem(newItems);
-                      }}
+                      onChange={(e) =>
+                        dispatch(
+                          updateWantToDoItem({ index, value: e.target.value })
+                        )
+                      }
                     />
-                    <button className="ml-2" onClick={()=> moveToNeedToDo(index)}>></button>
+                    <button
+                      className="ml-2"
+                      onClick={() => dispatch(moveToNeedToDo(index))}
+                    >
+                      Move
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
           <table className="RightTable">
-            <tr>
-              <th>Need To Do</th>
+            <thead>
+              <tr>
+                <th>Need To Do</th>
               </tr>
+            </thead>
             <tbody>
-              {needToDoItem.map((item, index)=>(
-                <tr key={index}><td>{item}</td></tr>
+              {needToDoItems.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <input
+                      value={item}
+                      onChange={(e) =>
+                        dispatch(
+                          updateNeedToDoItem({ index, value: e.target.value })
+                        )
+                      }
+                    />
+                    <button
+                      className="ml-2"
+                      onClick={() => dispatch(moveToWantToDo(index))}
+                    >
+                      Move
+                    </button>
+                  </td>
+                </tr>
               ))}
-              </tbody>
+            </tbody>
           </table>
         </div>
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <CreateListItem />
+    </Provider>
   );
 }
