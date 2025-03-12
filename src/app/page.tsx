@@ -26,9 +26,9 @@ function CreateListItem() {
     dispatch(deleteItem({ list, index }));
   };
   return (
-    <div>
-      <main>
-        <h1 className="text-2xl font-bold flex justify-center mt-20">
+    <div className="OuterContainer">
+      <div className="BodyContainer">
+        <h1 className="text-2xl sm:text-9xl hover:text-red-500 font-bold flex justify-center mt-20">
           Ideas List
         </h1>
         <div className="ListTablesContainer">
@@ -119,7 +119,7 @@ function CreateListItem() {
             Clear All
           </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
