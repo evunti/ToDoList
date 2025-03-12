@@ -26,12 +26,16 @@ body {
 }
 .ListTablesContainer {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-around;
+  margin: 20px 400px;
 }
 
 th,
 td {
   padding: 8px;
   text-align: center;
+}
+
+input {
+  background-color: #dcdcdc;
 }
