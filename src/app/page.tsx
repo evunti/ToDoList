@@ -57,18 +57,20 @@ function CreateListItem() {
                         )
                       }
                     />
-                    <button
-                      className="ml-2"
-                      onClick={() => dispatch(moveToNeedToDo(index))}
-                    >
-                      Move
-                    </button>
-                    <button
-                      className="ml-2 text-red-500"
-                      onClick={() => handleDeleteItem("wantToDo", index)}
-                    >
-                      Delete
-                    </button>
+                    <div className="buttonsContainer">
+                      <button
+                        className="ml-2"
+                        onClick={() => dispatch(moveToNeedToDo(index))}
+                      >
+                        Move
+                      </button>
+                      <button
+                        className="ml-2 text-red-500"
+                        onClick={() => handleDeleteItem("wantToDo", index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -93,18 +95,20 @@ function CreateListItem() {
                         )
                       }
                     />
-                    <button
-                      className="ml-2"
-                      onClick={() => dispatch(moveToWantToDo(index))}
-                    >
-                      Move
-                    </button>
-                    <button
-                      className="ml-2 text-red-500"
-                      onClick={() => handleDeleteItem("needToDo", index)}
-                    >
-                      Delete
-                    </button>
+                    <div className="buttonsContainer">
+                      <button
+                        className="ml-2"
+                        onClick={() => dispatch(moveToWantToDo(index))}
+                      >
+                        Move
+                      </button>
+                      <button
+                        className="ml-2 text-red-500"
+                        onClick={() => handleDeleteItem("needToDo", index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

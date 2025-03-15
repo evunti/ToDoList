@@ -39,6 +39,12 @@ td {
 input {
   background-color: #dcdcdc;
 }
+/* 
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+} */
 
 @media only screen and (max-width: 480px) {
   .ListTablesContainer {
