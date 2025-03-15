@@ -26,9 +26,9 @@ function CreateListItem() {
     dispatch(deleteItem({ list, index }));
   };
   return (
-    <div>
-      <main>
-        <h1 className="text-2xl font-bold flex justify-center mt-20">
+    <div className="OuterContainer">
+      <div className="BodyContainer">
+        <h1 className="text-2xl sm:text-9xl hover:text-red-500 font-bold flex justify-center mt-20">
           Ideas List
         </h1>
         <div className="ListTablesContainer">
@@ -57,18 +57,20 @@ function CreateListItem() {
                         )
                       }
                     />
-                    <button
-                      className="ml-2"
-                      onClick={() => dispatch(moveToNeedToDo(index))}
-                    >
-                      Move
-                    </button>
-                    <button
-                      className="ml-2 text-red-500"
-                      onClick={() => handleDeleteItem("wantToDo", index)}
-                    >
-                      Delete
-                    </button>
+                    <div className="buttonsContainer">
+                      <button
+                        className="ml-2"
+                        onClick={() => dispatch(moveToNeedToDo(index))}
+                      >
+                        Move
+                      </button>
+                      <button
+                        className="ml-2 text-red-500"
+                        onClick={() => handleDeleteItem("wantToDo", index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -93,18 +95,20 @@ function CreateListItem() {
                         )
                       }
                     />
-                    <button
-                      className="ml-2"
-                      onClick={() => dispatch(moveToWantToDo(index))}
-                    >
-                      Move
-                    </button>
-                    <button
-                      className="ml-2 text-red-500"
-                      onClick={() => handleDeleteItem("needToDo", index)}
-                    >
-                      Delete
-                    </button>
+                    <div className="buttonsContainer">
+                      <button
+                        className="ml-2"
+                        onClick={() => dispatch(moveToWantToDo(index))}
+                      >
+                        Move
+                      </button>
+                      <button
+                        className="ml-2 text-red-500"
+                        onClick={() => handleDeleteItem("needToDo", index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -119,7 +123,7 @@ function CreateListItem() {
             Clear All
           </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
